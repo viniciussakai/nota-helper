@@ -91,7 +91,7 @@ export default function Home() {
 
         <div className="flex flex-col gap-2">
           {ServiceTypes.map((service, i) => (
-            <div className="items-top flex space-x-2">
+            <div key={i} className="items-top flex space-x-2">
               <input
                 type="checkbox"
                 value={service.value}
