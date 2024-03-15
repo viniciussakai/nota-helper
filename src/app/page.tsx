@@ -4,19 +4,6 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-const FormSchema = z.object({
-  value: z.string().min(2),
-  payment: z.string().min(2).nullable(),
-  beneficiary: z.object({
-    name: z.string().min(3),
-    birthday: z.string(),
-  }),
-  services: z.array(z.string()),
-});
-
-type FormValues = z.infer<typeof FormSchema>;
 
 const PaymentTypes = [
   { value: "debit", label: "Débito" },
@@ -28,9 +15,9 @@ const PaymentTypes = [
 ];
 
 const ServiceTypes = [
-  { value: "service1", label: "TOMOGRAFIA" },
-  { value: "service2", label: "RADIOGRAFIA PERIAPICAL" },
-  { value: "service3", label: "DOCUMENTAÇAO ODONTOLOGICA" },
+  { value: "service1", label: "Tomografia Computadorizada" },
+  { value: "service2", label: "Radiografia Panorâmica" },
+  { value: "service3", label: "Documentação Ortodôntica" },
   { value: "service4", label: "Serviço 4" },
   { value: "service5", label: "Serviço 5" },
 ];
@@ -59,7 +46,7 @@ export default function Home() {
       (payment) => payment.value === data.payment
     )?.label;
 
-    result += `Valor Aproximado de Tributos Lei 12.741 - 16,51% -  R$${tribute}\n`;
+    result += `Valor aproximado de tributos Lei 12.741 - 16,51% -  R$${tribute}\n`;
     result += `Forma de Pagamento: ${payment}\n`;
 
     if (data.beneficiary.name) {
@@ -80,9 +67,9 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-1 min-h-screen   items-center justify-center gap-8 px-10">
+    <main className="flex flex-1 min-h-screen flex-col-reverse items-center justify-center gap-8 px-10">
       <form
-        className="flex flex-col gap-7 w-full  max-w-smmt-20"
+        className="flex flex-col gap-7 w-full  max-w-sm mt-10"
         onSubmit={handleSubmit(onSubmit)}
       >
         <h1 className="text-2xl font-bold text-center">Formulário</h1>
@@ -138,7 +125,7 @@ export default function Home() {
       {result && (
         <div className="flex flex-col gap-2  max-w-sm">
           <h2 className="text-xl font-bold">Resultado</h2>
-          <pre>{result}</pre>
+          <pre className="max-w-sm">{result}</pre>
           <Button onClick={() => setResult("")}>Limpar</Button>
         </div>
       )}
